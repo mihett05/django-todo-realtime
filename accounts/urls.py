@@ -1,8 +1,9 @@
 from django.urls import path
-from django.contrib.auth.decorators import login_required
-from .views import login_view, register_view
+from django.contrib.auth.urls import urlpatterns as auth_urls
+from .views import profile, register_view
 
 urlpatterns = [
-    path("", index),
-    path("todo/", login_required(TodoView.as_view()))
+    *auth_urls,
+    path("", profile, name="profile"),
+    path("register/", register_view, name="register")
 ]

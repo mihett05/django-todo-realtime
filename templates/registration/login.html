@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Login</h5>
+                    {% if form.erros or next %}
+                        <div class="alert alert-danger" role="alert">
+                            {% if form.errors %}
+                                Invalid login or password
+                            {% elif next %}
+                                {% if request.user.is_authenticated %}
+                                    You haven't access to see this page, login in account that have access
+                                {% else %}
+                                    You must login to see this page
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <form action="{% url "login" %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">
+                                {{ form.username.label }}
+                            </label>
+                            <input
+                                id="{{ form.username.id_for_label }}"
+                                class="form-control"
+                                type="text"
+                                inputmode="text"
+                                name="{{ form.username.html_name }}"
+                                {% if form.username.value %}
+                                    value="{{ form.username.value }}"
+                                {% endif %}
+                                required
+                            >
+                            {% if form.username.help_text %}
+                                <small
+                                    id="{{ form.username.id_for_label }}_help"
+                                    class="form-text text-muted"
+                                >
+                                    {{ form.username.help_text }}
+                                </small>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.password.id_for_label }}">
+                                {{ form.password.label }}
+                            </label>
+                            <input
+                                id="{{ form.password.id_for_label }}"
+                                class="form-control"
+                                type="password"
+                                inputmode="text"
+                                name="{{ form.password.html_name }}"
+                                {% if form.password.value %}
+                                    value="{{ form.password.value }}"
+                                {% endif %}
+                                required
+                            >
+                            {% if form.password.help_text %}
+                                <small
+                                    id="{{ form.password.id_for_label }}_help"
+                                    class="form-text text-muted"
+                                >
+                                    {{ form.password.help_text }}
+                                </small>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button><br/>
+                        <a href="{% url "register" %}">or you can register</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+{% endblock %}

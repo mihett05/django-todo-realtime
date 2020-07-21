@@ -32,7 +32,7 @@ class TodoView(LoginRequiredMixin, View):
                     "error": "Invalid form"
                 }, status=400)
 
-            Todo(text=data["text"]).save()
+            Todo(text=data["text"], user=req.user).save()
             return JsonResponse({
                 "ok": True,
                 "todo_list": Todo.user_todo_list(req.user)
@@ -53,7 +53,7 @@ class TodoView(LoginRequiredMixin, View):
                     "error": "Invalid Form"
                 }, status=400)
             try:
-                todo = Todo.objects.get(id=data["id"])
+                todo = Todo.objects.get(id=data["id"], user=req.user)
                 todo.text = data["text"]
                 todo.save()
             except ObjectDoesNotExist:
@@ -82,7 +82,7 @@ class TodoView(LoginRequiredMixin, View):
                     "error": "Invalid Form"
                 }, status=400)
             try:
-                todo = Todo.objects.get(id=data["id"])
+                todo = Todo.objects.get(id=data["id"], user=req.user)
                 todo.delete()
                 todo.save()
             except ObjectDoesNotExist:
