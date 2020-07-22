@@ -12,8 +12,21 @@
                 <div class="card-body">
                     <h5 class="card-title">Login</h5>
                     {% if errors %}
-                        {% for field in errors %}
-                            <p>{{ errors }}</p>
+                        {% for field, error_list in errors.items %}
+                            <div class="alert alert-danger text-left" role="alert">
+                                <ul>
+                                    <li>
+                                        {{ field }}
+                                        {% if error_list|length > 0 %}
+                                            <ul>
+                                                {% for error in error_list %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
                         {% endfor %}
                     {% endif %}
                     <form action="{% url "register" %}" method="POST">
@@ -44,13 +57,38 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">
+                                {{ form.email.label }}
+                            </label>
+                            <input
+                                id="{{ form.email.id_for_label }}"
+                                class="form-control"
+                                type="email"
+                                inputmode="email"
+                                name="{{ form.email.html_name }}"
+                                {% if form.email.value %}
+                                    value="{{ form.email.value }}"
+                                {% endif %}
+                                required
+                            >
+                            {% if form.email.help_text %}
+                                <small
+                                    id="{{ form.email.id_for_label }}_help"
+                                    class="form-text text-muted"
+                                >
+                                    {{ form.email.help_text }}
+                                </small>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
                             <label for="{{ form.password1.id_for_label }}">
                                 {{ form.password1.label }}
                             </label>
                             <input
                                 id="{{ form.password1.id_for_label }}"
                                 class="form-control"
-                                type="text"
+                                type="password"
                                 inputmode="text"
                                 name="{{ form.password1.html_name }}"
                                 {% if form.password1.value %}
@@ -75,7 +113,7 @@
                             <input
                                 id="{{ form.password2.id_for_label }}"
                                 class="form-control"
-                                type="text"
+                                type="password"
                                 inputmode="text"
                                 name="{{ form.password2.html_name }}"
                                 {% if form.password2.value %}
