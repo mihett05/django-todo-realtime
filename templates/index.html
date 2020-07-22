@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-<template id="task">
-    <div class="card">
-        <div class="card-body">
-            <p class="card-text">
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
-            <a href="#" class="card-link">Edit</a>
-            <a href="#" class="card-link">Delete</a>
-        </div>
-    </div>
-</template>
+{% load static %}
+
 
 {% block content %}
+    <div id="tasks">
 
+    </div>
+    <div class="text-center">
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/api.js" %}"></script>
+    <script src="{% static "js/task.js" %}"></script>
+    <script src="{% static "js/load_tasks.js" %}"></script>
 {% endblock %}

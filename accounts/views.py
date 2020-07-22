@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from .forms import RegistrationForm
 
 
@@ -10,7 +11,8 @@ def register_view(req):
     if req.method == "POST":
         form = RegistrationForm(req.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(req, user)
             return redirect("profile_view")
     else:
         form = RegistrationForm()

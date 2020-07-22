@@ -5,7 +5,6 @@ from django.views import View
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from .models import Todo
 
 
