@@ -1,6 +1,5 @@
 class Task extends HTMLElement {
     connectedCallback() {
-        //this.attachShadow({ mode: "open" });
         this.innerHTML = `
             <div class="card task" id="task-${this.getAttribute("task-id")}">
                 <div class="card-body">

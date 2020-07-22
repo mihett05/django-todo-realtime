@@ -24,7 +24,7 @@ class TodoView(LoginRequiredMixin, View):
     def post(self, req):
         # Create new task
         try:
-            data = json.loads(req.POST)
+            data = json.loads(req.body)
             if "text" not in data:
                 return JsonResponse({
                     "ok": False,
@@ -45,7 +45,7 @@ class TodoView(LoginRequiredMixin, View):
     def put(self, req):
         # Edit task
         try:
-            data = json.loads(req.POST)
+            data = json.loads(req.body)
             if "text" not in data or "id" not in data or ("text" in data and not data["text"]):
                 return JsonResponse({
                     "ok": False,
@@ -59,7 +59,7 @@ class TodoView(LoginRequiredMixin, View):
                 return JsonResponse({
                     "ok": False,
                     "error": "Todo not found"
-                })
+                }, status=404)
 
             return JsonResponse({
                 "ok": True,
@@ -74,8 +74,8 @@ class TodoView(LoginRequiredMixin, View):
     def delete(self, req):
         # Delete task
         try:
-            data = json.loads(req.POST)
-            if "text" not in data or "id" not in data or ("text" in data and not data["text"]):
+            data = json.loads(req.body)
+            if "id" not in data:
                 return JsonResponse({
                     "ok": False,
                     "error": "Invalid Form"
@@ -83,12 +83,11 @@ class TodoView(LoginRequiredMixin, View):
             try:
                 todo = Todo.objects.get(id=data["id"], user=req.user)
                 todo.delete()
-                todo.save()
             except ObjectDoesNotExist:
                 return JsonResponse({
                     "ok": False,
                     "error": "Todo not found"
-                })
+                }, status=404)
 
             return JsonResponse({
                 "ok": True,
