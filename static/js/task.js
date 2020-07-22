@@ -9,7 +9,7 @@ class Task extends HTMLElement {
                     <a href="#" class="card-link">Edit</a>
                     <a
                         href="#"
-                        onclick="delete_task(${this.getAttribute("task-id")})"
+                        onclick="delete_task_action(${this.getAttribute("task-id")})"
                         class="card-link"
                     >
                         Delete
@@ -24,7 +24,7 @@ class Task extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.render();
+        //this.render();
     }
 }
 
