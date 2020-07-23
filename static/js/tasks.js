@@ -1,5 +1,8 @@
+let current_todo_list = [];
+
 const render_tasks = (todo_list) => {
     const tasks = document.querySelector("#tasks");
+    current_todo_list = todo_list;
     tasks.innerHTML = "";
 
     todo_list.forEach((v) => {
