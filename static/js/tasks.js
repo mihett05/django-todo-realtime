@@ -8,12 +8,22 @@ const render_tasks = (todo_list) => {
         el.setAttribute("text", v.text);
         tasks.append(el);
     });
+};
+
+const create_task_action = (text) => {
+    create_task(text)
+        .then(render_tasks);
 }
 
 const delete_task_action = (id) => {
     delete_task(id)
         .then(render_tasks);
-}
+};
+
+const edit_task_action = (id, text) => {
+    update_task(id, text)
+        .then(render_tasks);
+};
 
 get_tasks()
     .then(render_tasks);

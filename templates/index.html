@@ -25,11 +25,65 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="modal_add_todo()">Add</button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="modal_add_todo()"
+                        data-dismiss="modal"
+                    >
+                        Add
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editing todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input
+                            id="edit_input_id"
+                            type="number"
+                            class="form-control"
+                            placeholder="Todo id"
+                            aria-label="Id"
+                            disabled
+                        >
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                            id="edit_input_text"
+                            type="text"
+                            class="form-control"
+                            placeholder="Todo text"
+                            aria-label="Text"
+                        >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        onclick="modal_edit_todo()"
+                    >
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="temp_modal"></div>
 
     <div id="tasks">
